@@ -1,0 +1,38 @@
+//이 프로젝트의 플러그인 의존성 관리를 위한 설정 ext라는 키워드는 build.gradle에서 사용하는 전역변수를 설정하겠다라는 의미
+buildscript{
+    ext{
+        springBootVersion = '2.1.7.RELEASE'
+    }
+//repositories는 각종 의존성 들을 어떤 원격 저장소에서 받을지 정함. 기본적으로 mavenCentral을 많이 사용하지만 최근에는 라이브러리 업로드
+//난이도 때문에 jcenter도 많이 사용함.
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+//dependencies는 프로젝트 개발에 필요한 의존성들을 선언하는 곳.
+    dependencies {
+//springBootVersion 전역변수를 생성하고 그값을 '2.1.7.RELEASE'로 하겠다는 의미 즉 spring-boot-gradle-plugin라는 스프링 부트
+//그레이들 플러그인의 2.1.7.RELEASE를 의존성으로 받겠다는 의미
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+//    compileOnly('org.springframework.bookt:spring-boot-starter')
+//    testCompileOnly('org.springframework.boot:spring-boot-starter-test')
+}
